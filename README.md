@@ -1,4 +1,7 @@
- Inside our main.c file, we need to create a new variable that will hold the return value of the getline function.
+
+/** internal info **/  
+
+Inside our main.c file, we need to create a new variable that will hold the return value of the getline function.
  This is supposed to be the total number of characters that were read by the function. It is however -1 if it fails or encounter the EOF character.
 
 we will check if the return value is -1 and exit the shell if it is.
@@ -22,3 +25,9 @@ prototipo strtok	char *strtok(char *str, const char *delim);
 			 debe usarse como guía para dividir la cadena en trozos más pequeños.
 			( significa que se espera que haya ciertos caracteres específicos que actúen como
      			  delimitadores para dividir la cadena en tokens más pequeños.)
+			  
+			  
+			  
+			  
+			  
+			  /*   --------------------------------------------------------------------  */   
