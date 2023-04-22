@@ -1,4 +1,4 @@
-#include "main."
+#include "main.h"
 
 /**
  * main - entry point
@@ -14,9 +14,10 @@
 		int checkValuReturn = execve(argv[0], argv, NULL);
 
 		if (val == -1)
+		{
 			perror("Error sgmf!!")
 
-
+		}
 
 		return (0);
 	}
