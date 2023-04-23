@@ -11,11 +11,11 @@
 
 int main(int arc, char **argv)
 {
-	char *user_imput = "(my_sh) c:\\>>$ ";  /* prompt */
+	char *prompt_message = "(my_sh) c:\\>>$ ";  /* prompt */
 	char *lineptr = NULL; /* to store buffer direction, contains what is written.  [getline function] */
 	char *lineptr_duplicate = NULL; /* variable to contain the copy of the string to be passed to strtok. */
 	size_t n = 0; /* size_t store the assigned size in bytes;  [getline function] */
-	size_t readCharacterCount; /* read number of characters the user types */
+	size_t inputLength; /* read number of characters the user types */
 	const char *delim = "\n"; /* variable to contain the delimiters  [strtok] */
 	int number_tokens = 0;
 	char *token;
@@ -26,12 +26,12 @@ int main(int arc, char **argv)
 
 while (1) /* create a infinite loop for prompt*/
 {
-	printf("%s", user_imput); 
-	readCharacterCount = getline(&lineptr, &n, stdin); /* [getline function]  stdin = stream; */
+	printf("%s", prompt_message); 
+	inputLength = getline(&lineptr, &n, stdin); /* [getline function]  stdin = stream; */
 					/* represents the source from which we want the function to get the data from. */
     
 	/* Ensure that the getline function didn't encounter any errors, reached the end of file, or if the user used CTRL + D */
-	if (readCharacterCount == -1)
+	if (inputLength == -1)
 	{
 	printf("Exit shell\n");
 	return (-1); /* ctrl + d = -1 ) exit */
@@ -40,7 +40,7 @@ while (1) /* create a infinite loop for prompt*/
 	/* ################################################################################################################### */
 
 	/* allocate space for a copy of the lineptr [getline] */
-	lineptr_duplicate = malloc(sizeof(char) * readCharacterCount);
+	lineptr_duplicate = malloc(sizeof(char) * inputLength);
 	if (lineptr_duplicate == NULL)
 	{
 	perror("memory allocation error");
