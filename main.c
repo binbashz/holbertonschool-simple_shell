@@ -23,12 +23,14 @@ int execute_external_command(char **argv)
 		/* This is the child process */
 		execvp(argv[0], argv);
 		perror("execvp error");
+		free(argv);
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
 	{
 		/* The fork failed */
 		perror("fork error");
+		free(argv);
 		return (-1);
 	}
 	else
@@ -76,7 +78,7 @@ int main(int argc, char **argv)                 /* main */
 	const char *delim = "\n";
 	int number_tokens = 0;
 	char *token;
-	int i, j = 0;
+	int i;
 
 	/* declaring void variables */
 	(void)argc;
@@ -96,6 +98,7 @@ int main(int argc, char **argv)                 /* main */
 		lineptr_duplicate = malloc(sizeof(char) * inputLength);
 		if (lineptr_duplicate == NULL)
 		{
+			free(lineptr_duplicate);
 			perror("memory allocation error");
 			return (-1);
 		}
@@ -116,7 +119,11 @@ int main(int argc, char **argv)                 /* main */
 
 		/* Allocate space to hold the array of strings */
 		argv = malloc(sizeof(char *) * number_tokens);
-
+		if(argv == NULL)
+		{
+			free(lineptr_duplicate);
+				return (-1);
+		}
 		/* Store each token in the array argv  */
 		token = strtok(lineptr_duplicate, delim);
 
@@ -124,8 +131,8 @@ int main(int argc, char **argv)                 /* main */
 		{
 			argv[i] = malloc(sizeof(char) * _strlen(token));
 			_strcpy(argv[i], token);
-
 			token = strtok(NULL, delim);
+			free(argv[i]);
 		}
 		argv[i] = NULL;
 
@@ -146,12 +153,6 @@ int main(int argc, char **argv)                 /* main */
 
 		free(lineptr);
 		free(argv);
-		while (j != i)
-		{
-			free(argv[j]);
-			j++;
-		}
 	}
-
 	return (0);
 }
