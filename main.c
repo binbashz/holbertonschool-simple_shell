@@ -118,7 +118,7 @@ int main(int argc, char **argv)                 /* main */
 
 		/* Allocate space to hold the array of strings */
 		argv = malloc(sizeof(char *) * number_tokens);
-		if(argv == NULL)
+		if (argv == NULL)
 		{
 			free(lineptr_duplicate);
 				return (-1);
@@ -134,16 +134,21 @@ int main(int argc, char **argv)                 /* main */
 		}
 		argv[i] = NULL;
 
-		/* Determine if the command is internal or external */
 
-		if (_strcmp(argv[0], "cd") == 0)
-		{
-			execute_internal_command(argv);
-		}
-		else
-		{
-			execute_external_command(argv);
-		}
+	/* Determine if the command is internal or external */
+	if (_strcmp(argv[0], "cd") == 0)
+	{
+	execute_internal_command(argv);
+	}
+	else if (_strcmp(argv[0], "ls") == 0)
+	{
+	argv[0] = "/bin/ls"; /* specify the command path to execute */
+	execute_external_command(argv);
+	}
+	else
+	{
+	execute_external_command(argv);
+	}
 		printf("%s\n", lineptr);
 
 		free(lineptr);
