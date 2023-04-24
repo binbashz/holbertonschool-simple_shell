@@ -1,85 +1,125 @@
-
-/**
- * main - entry point.
- * @arc: Count number of arguments.
- * @argv: Array of strings.
- *
- * Return: 0.
- */
-
 #include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
-int main(int arc, char **argv)
+
+int execute_external_command(char **argv)
 {
-	char *prompt_message = "(my_sh) c:\\>>$ ";  /* prompt */
-	char *lineptr = NULL; /* to store buffer direction, contains what is written.  [getline function] */
-	char *lineptr_duplicate = NULL; /* variable to contain the copy of the string to be passed to strtok. */
-	size_t n = 0; /* size_t store the assigned size in bytes;  [getline function] */
-	size_t inputLength; /* read number of characters the user types */
-	const char *delim = "\n"; /* variable to contain the delimiters  [strtok] */
+	pid_t pid;
+	int status;
+
+	pid = fork();
+
+	if (pid == 0)
+	{
+		/* This is the child process */
+		execvp(argv[0], argv);
+		perror("execvp error");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid < 0)
+	{
+		/* The fork failed */
+		perror("fork error");
+		return (-1);
+	}
+	else
+	{
+		/* This is the parent process */
+		waitpid(pid, &status, 0);
+	}
+	return (0);
+	}
+
+int execute_internal_command(char **argv)
+{
+	/* Handle the internal command here */
+
+	return (0);
+}
+
+int main(int argc, char **argv)                 /* main */
+{
+	char *prompt_message = "(my_sh) c:\\>>$ ";
+	char *lineptr = NULL;
+	char *lineptr_duplicate = NULL;
+	size_t n = 0;
+	size_t inputLength;
+	const char *delim = "\n";
 	int number_tokens = 0;
 	char *token;
-	int i; 
-     
+	int i;
+
 	/* declaring void variables */
-	(void)arc; 
+	(void)argc;
 
-while (1) /* create a infinite loop for prompt*/
-{
-	printf("%s", prompt_message); 
-	inputLength = getline(&lineptr, &n, stdin); /* [getline function]  stdin = stream; */
-					/* represents the source from which we want the function to get the data from. */
-    
-	/* Ensure that the getline function didn't encounter any errors, reached the end of file, or if the user used CTRL + D */
-	if (inputLength == -1)
+	while (1)
 	{
-	printf("Exit shell\n");
-	return (-1); /* ctrl + d = -1 ) exit */
-	}
+		printf("%s", prompt_message);
+		inputLength = getline(&lineptr, &n, stdin);
 
-	/* ################################################################################################################### */
+		if (inputLength == -1)
+		{
+			printf("Exit shell\n");
+			return (-1);
+		}
 
-	/* allocate space for a copy of the lineptr [getline] */
-	lineptr_duplicate = malloc(sizeof(char) * inputLength);
-	if (lineptr_duplicate == NULL)
-	{
-	perror("memory allocation error");
-	return (-1);
-	}
-	
-	/* copy lineptr to lineptr_duplicate */
-	_strcpy(lineptr_duplicate, lineptr);
+		/* allocate space for a copy of the lineptr */
+		lineptr_duplicate = malloc(sizeof(char) * inputLength);
+		if (lineptr_duplicate == NULL)
+		{
+			perror("memory allocation error");
+			return (-1);
+		}
 
-	
-	/********** split the string (lineptr) into an array of words ********/
+		/* copy lineptr to lineptr_duplicate */
+		_strcpy(lineptr_duplicate, lineptr);
 
-	/* calculate the total number of tokens */
-	token = strtok(lineptr, delim);
+		/********** split the string (lineptr) into an array of words ********/
+		/* calculate the total number of tokens */
+		token = strtok(lineptr, delim);
 
-	while (token != NULL)
-	{
+		while (token != NULL)
+		{
+			number_tokens++;
+			token = strtok(NULL, delim);
+		}
 		number_tokens++;
-		token = strtok(NULL, delim);
+
+		/* Allocate space to hold the array of strings */
+		argv = malloc(sizeof(char *) * number_tokens);
+
+		/* Store each token in the array argv  */
+		token = strtok(lineptr_duplicate, delim);
+
+		for (i = 0; token != NULL; i++)
+		{
+			argv[i] = malloc(sizeof(char) * _strlen(token));
+			_strcpy(argv[i], token);
+
+			token = strtok(NULL, delim);
+		}
+		argv[i] = NULL;
+
+		/* Determine if the command is internal or external */
+
+
+		if (_strcmp(argv[0], "cd") == 0)
+		{
+			execute_internal_command(argv);
+		}
+
+		else
+		{
+			execute_external_command(argv);
+		}
+
+		printf("%s\n", lineptr);
+
+		free(lineptr);
 	}
-	number_tokens++;
-	/* Allocate space to hold the array of strings */
-	argv = malloc(sizeof(char *) * number_tokens);
 
-	/* Store each token in the array argv  */
-	token = strtok(lineptr_duplicate, delim);
-
-	for (i = 0; token != NULL; i++)
-	{
-	argv[i] = malloc(sizeof(char) * strlen(token));
-	_strcpy(argv[i], token);
-
-	token = strtok(NULL, delim);
-	}
-	argv[i] = NULL;
-
-	printf("%s\n", lineptr); /* printing what was written or saved in *lineptr.  */
-
-	free(lineptr); /* [getline] allocates memory, must be freed */
-}
 	return (0);
 }
