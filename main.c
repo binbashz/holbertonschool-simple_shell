@@ -1,9 +1,15 @@
-#include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
+#include "main.h"
+
+/**
+ * execute_external_command - Executes a command not built into the shell.
+ * @argv: an array of arguments passed to the function
+ * This function creates a child process and attempts to execute the command
+ * specified in the argv array. If successful, the child process will run the
+ * command and then terminate. The parent process will wait for the child to
+ * complete execution before terminating.
+ * Return: 0 on success, -1 on failure.
+ */
 
 int execute_external_command(char **argv)
 {
@@ -31,7 +37,15 @@ int execute_external_command(char **argv)
 		waitpid(pid, &status, 0);
 	}
 	return (0);
-	}
+}
+
+
+/**
+ * execute_internal_command - Executes a command built into the shell.
+ * @argv: an array of arguments passed to the function
+ * This function handles internal shell commands such as "cd" or "exit".
+ * Return: 0 on success.
+ */
 
 int execute_internal_command(char **argv)
 {
@@ -39,6 +53,18 @@ int execute_internal_command(char **argv)
 
 	return (0);
 }
+
+/**
+ * main - Entry point for the shell program.
+ * @argc: The number of arguments passed to the program
+ * @argv: An array of strings containing the arguments
+ * This function contains the main loop for the shell program. It prints a
+ * prompt message, reads input from the user, and determines whether the
+ * command entered is an internal or external command. Internal commands are
+ * executed by calling the execute_internal_command function, and external
+ * commands are executed by calling the execute_external_command function.
+ * Return: 0 on success.
+ */
 
 int main(int argc, char **argv)                 /* main */
 {
@@ -50,7 +76,7 @@ int main(int argc, char **argv)                 /* main */
 	const char *delim = "\n";
 	int number_tokens = 0;
 	char *token;
-	int i;
+	int i, j = 0;
 
 	/* declaring void variables */
 	(void)argc;
@@ -119,6 +145,12 @@ int main(int argc, char **argv)                 /* main */
 		printf("%s\n", lineptr);
 
 		free(lineptr);
+		free(argv);
+		while (j != i)
+		{
+			free(argv[j]);
+			j++;
+		}
 	}
 
 	return (0);
