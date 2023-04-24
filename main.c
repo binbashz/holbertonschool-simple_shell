@@ -84,6 +84,8 @@ int main(int argc, char **argv)                 /* main */
 
 	while (1)
 	{
+		argv = NULL; /* se agrego, para evitar la doble liberacion de memoria */
+
 		printf("%s", prompt_message);
 		inputLength = getline(&lineptr, &n, stdin);
 
@@ -159,6 +161,7 @@ int main(int argc, char **argv)                 /* main */
 		}
 		free(argv);
 	}
-	free(argv);
+/*	free(argv); */
+
 	return (0);
 }
