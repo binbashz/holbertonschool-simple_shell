@@ -23,20 +23,19 @@ int execute_external_command(char **argv)
 		/* This is the child process */
 		execvp(argv[0], argv);
 		perror("execvp error");
-		free(argv);
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
 	{
 		/* The fork failed */
 		perror("fork error");
-		free(argv);
 		return (-1);
 	}
 	else
 	{
 		/* This is the parent process */
 		waitpid(pid, &status, 0);
+		free(argv);
 	}
 	return (0);
 }
@@ -78,7 +77,7 @@ int main(int argc, char **argv)                 /* main */
 	const char *delim = "\n";
 	int number_tokens = 0;
 	char *token;
-	int i;
+	int i, j = 0;
 
 	/* declaring void variables */
 	(void)argc;
@@ -132,27 +131,29 @@ int main(int argc, char **argv)                 /* main */
 			argv[i] = malloc(sizeof(char) * _strlen(token));
 			_strcpy(argv[i], token);
 			token = strtok(NULL, delim);
-			free(argv[i]);
 		}
 		argv[i] = NULL;
 
 		/* Determine if the command is internal or external */
 
-
 		if (_strcmp(argv[0], "cd") == 0)
 		{
 			execute_internal_command(argv);
 		}
-
 		else
 		{
 			execute_external_command(argv);
 		}
-
 		printf("%s\n", lineptr);
 
 		free(lineptr);
+		while (j < i)
+		{
+			free(argv[j]);
+			j++;
+		}
 		free(argv);
 	}
+	free(argv);
 	return (0);
 }
