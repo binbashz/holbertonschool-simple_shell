@@ -1,7 +1,7 @@
 ## C - Simple Shell		
 
 
-School Proyect 
+School project 
 Write a UNIX command line interpreter.
 
 
