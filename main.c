@@ -34,7 +34,7 @@ int execute_external_command(char **argv)
 	{
 		/* This is the parent process */
 		waitpid(pid, &status, 0);
-		/* free(argv);    */
+		 free(argv); /* free th argv array   */
 	}
 	return (0);
 }
