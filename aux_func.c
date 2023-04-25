@@ -1,15 +1,4 @@
-/**
- * exit_shell - when the user type exit
- * and the shell close.
- * @args:  insert comand
- * builtin command
- */
-
-
-void exit_shell(char **args)
-{
-	exit(0);
-}
+#include "main.h"
 
 /**
  * _strcpy -  function that copies the string
