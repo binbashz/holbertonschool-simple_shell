@@ -20,6 +20,15 @@ The shell is the interface between the user and the operating system.
 The shell is an executable file (program) that acts as an intermediary between the operating system and the user who enters commands in text mode.
 Its function is to read the command line, interpret its meaning, execute the command and then output the result via the outputs.
 
+
+
+getline() reads an entire line from stream, storing the address
+       of the buffer containing the text into *lineptr.  The buffer is
+       null-terminated and includes the newline character, if one was
+       found.
+  
+  
+  ## /* site under construcction */
 			  
 
 			  
