@@ -1,4 +1,15 @@
-#include "main.h"
+/**
+ * exit_shell - when the user type exit
+ * and the shell close.
+ * @args:  insert comand
+ * builtin command
+ */
+
+
+void exit_shell(char **args)
+{
+	exit(0);
+}
 
 /**
  * _strcpy -  function that copies the string
@@ -78,3 +89,4 @@ int _strcmp(char *s1, char *s2)
 	}
 	return (d);
 }
+
