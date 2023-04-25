@@ -1,4 +1,3 @@
-
 #include "main.h"
 
 /**
@@ -131,7 +130,7 @@ int main(int argc, char **argv)                 /* main */
 
 		for (i = 0; token != NULL; i++)
 		{
-			argv[i] = malloc(sizeof(char) * (_strlen(token) +1)); /* add +1*/
+			argv[i] = malloc(sizeof(char) * (_strlen(token) + 1)); /* add +1*/
 			_strcpy(argv[i], token);
 			token = strtok(NULL, delim);
 		}
@@ -156,7 +155,9 @@ int main(int argc, char **argv)                 /* main */
 
 		free(lineptr);
 		j = 0;
-		while (argv[j] != NULL);
+
+		while (argv[j] != NULL)
+
 		{
 			free(argv[j]);
 			j++;
