@@ -15,25 +15,25 @@ int execute_external_command(char **argv)
 	pid_t pid;
 	int status;
 
-	pid = fork();
+	pid = fork(); /* crea un proceso hijo */
 
-	if (pid == 0)
+	if (pid == 0) /* si pid == 0, este es el proceso hijo */
 	{
 		/* This is the child process */
-		execvp(argv[0], argv);
+		execvp(argv[0], argv); /* ejecuta el comando */
 		perror("execvp error");
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE); /* termina el proceso hijo */
 	}
-	else if (pid < 0)
+	else if (pid < 0) /* i pid <0, el fork fallor */
 	{
 		/* The fork failed */
 		perror("fork error");
 		return (-1);
 	}
-	else
+	else /* si pid > 0, este es el proceso padre */
 	{
 		/* This is the parent process */
-		waitpid(pid, &status, 0);
+		waitpid(pid, &status, 0); /* espera a que el proceso hijo termine */
 		 free(argv); /* free th argv array   */
 	}
 	return (0);
@@ -49,8 +49,9 @@ int execute_external_command(char **argv)
 
 int execute_internal_command(char **argv)
 {
-	(void)argv;
+	(void)argv; /* evita la advertencia de paramero sin usar */
 	/* Handle the internal command here */
+	/* maneja el comando interno aqui */
 
 	return (0);
 }
@@ -69,15 +70,15 @@ int execute_internal_command(char **argv)
 
 int main(int argc, char **argv)                 /* main */
 {
-	char *prompt_message = "(my_sh) c:\\>>$ ";
-	char *lineptr = NULL;
-	char *lineptr_duplicate = NULL;
-	size_t n = 0;
-	ssize_t inputLength;
-	const char *delim = " \t\r\n\a";
-	int number_tokens = 0;
-	char *token;
-	int i, j = 0;
+	char *prompt_message = "(my_sh) c:\\>>$ "; /* mensaje para el prompt */
+	char *lineptr = NULL; /* puntero a la linea ingresada por el usuario */
+	char *lineptr_duplicate = NULL; /* copia de lineptr */
+	size_t n = 0; /* tamano de la linea ingresada */
+	ssize_t inputLength; /* longitud de la linea igresada */
+	const char *delim = " \t\r\n\a"; /* delimitadores para el tokenizador */
+	int number_tokens = 0; /* numero total de tokens en la linea */
+	char *token; /* puntero a cada token */
+	int i, j = 0; /* contador para bucle */
 
 	/* declaring void variables */
 	(void)argc;
@@ -89,15 +90,15 @@ int main(int argc, char **argv)                 /* main */
 		printf("%s", prompt_message);
 		inputLength = getline(&lineptr, &n, stdin);
 
-		if (inputLength == -1)
+		if (inputLength == -1) /* si getline falla, o EOF salimos del programa*/
 		{
 			printf("Exit shell\n");
 			return (-1);
 		}
 
 		/* allocate space for a copy of the lineptr */
-		lineptr_duplicate = malloc(sizeof(char) * inputLength);
-		if (lineptr_duplicate == NULL)
+		lineptr_duplicate = malloc(sizeof(char) * inputLength); /* asiganamos memoria para el duplicado */
+		if (lineptr_duplicate == NULL) /* si malloc falla  al asignar, liberamos al mem prev asignada y salimos del prog*/
 		{
 			free(lineptr_duplicate);
 			perror("memory allocation error");
@@ -109,9 +110,9 @@ int main(int argc, char **argv)                 /* main */
 
 		/********** split the string (lineptr) into an array of words ********/
 		/* calculate the total number of tokens */
-		token = strtok(lineptr, delim);
+		token = strtok(lineptr, delim); /* se separa la cadena en palabras ,utilizando el delimitador */
 
-		while (token != NULL)
+		while (token != NULL) /* se cuentan la cantidad de palabras */
 		{
 			number_tokens++;
 			token = strtok(NULL, delim);
@@ -119,26 +120,31 @@ int main(int argc, char **argv)                 /* main */
 		number_tokens++;
 
 		/* Allocate space to hold the array of strings */
-		argv = malloc(sizeof(char *) * number_tokens);
-		if (argv == NULL)
+		argv = malloc(sizeof(char *) * number_tokens); /* se asigna memoria para un array de punteros a char */
+		if (argv == NULL)/* si malloc falla al asignar mem, liberamos la prev asignada y salimos del programa */
 		{
 			free(lineptr_duplicate);
 			perror("oops, memory allocation error");
 				return (-1);
 		}
 		/* Store each token in the array argv  */
-		token = strtok(lineptr_duplicate, delim);
+		token = strtok(lineptr_duplicate, delim); /*  se espera la cadena en palabras utilizando el delimitador especifico */
 
-		for (i = 0; token != NULL; i++)
+		for (i = 0; token != NULL; i++) /* se almacena cada palabra en el array argv */
 		{
-			argv[i] = malloc(sizeof(char) * (_strlen(token) + 1)); /* add +1*/
+			argv[i] = malloc(sizeof(char) * (_strlen(token) + 1)); /* se asigna memoria para la palabra actual y se almacena en argv */
 			_strcpy(argv[i], token);
 			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
 
 
-	/* Determine if the command is internal or external */
+/* Determine if the command is internal or external */
+
+/*Después de determinar si el comando es interno o externo, el programa ejecuta la función correspondiente.*/
+/* Si el comando es "cd", entonces se llama a la función execute_internal_command() para cambiar el directorio actual.*/
+/* Si el comando es "ls" o cualquier otro comando externo, se llama a la función execute_external_command() para ejecutar el comando externo.*/
+
 		if (_strcmp(argv[0], "cd") == 0)
 		{
 			execute_internal_command(argv);
