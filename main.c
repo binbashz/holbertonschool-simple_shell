@@ -49,6 +49,7 @@ int execute_external_command(char **argv)
 
 int execute_internal_command(char **argv)
 {
+	(void)argv;
 	/* Handle the internal command here */
 
 	return (0);
