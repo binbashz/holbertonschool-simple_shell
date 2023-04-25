@@ -139,26 +139,30 @@ int main(int argc, char **argv)                 /* main */
 
 
 	/* Determine if the command is internal or external */
-	if (_strcmp(argv[0], "cd") == 0)
-	{
-	execute_internal_command(argv);
-	}
-	else if (_strcmp(argv[0], "ls") == 0)
-	{
-	argv[0] = "/bin/ls"; /* specify the command path to execute */
-	execute_external_command(argv);
-	}
-	else
-	{
-	execute_external_command(argv);
-	}
+		if (_strcmp(argv[0], "cd") == 0)
+		{
+			execute_internal_command(argv);
+		}
+		else if (_strcmp(argv[0], "ls") == 0)
+		{
+			argv[0] = "/bin/ls";
+			execute_external_command(argv);
+		}
+		else if (_strcmp(argv[0], "env") == 0)
+			/* Agregar un comando para mostrar el valor de la variable PATH */
+		{
+			printf("PATH: %s\n", getenv("PATH"));
+		}
+		else
+		{
+			execute_external_command(argv);
+		}
 		printf("%s\n", lineptr);
 
 		free(lineptr);
 		j = 0;
 
 		while (argv[j] != NULL)
-
 		{
 			free(argv[j]);
 			j++;
