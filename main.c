@@ -35,7 +35,7 @@ int execute_external_command(char **argv)
 	{
 		/* This is the parent process */
 		waitpid(pid, &status, 0);
-		free(argv);
+		/* free(argv);    */
 	}
 	return (0);
 }
@@ -123,6 +123,7 @@ int main(int argc, char **argv)                 /* main */
 		if (argv == NULL)
 		{
 			free(lineptr_duplicate);
+			perror("oops, memory allocation error");
 				return (-1);
 		}
 		/* Store each token in the array argv  */
@@ -130,7 +131,7 @@ int main(int argc, char **argv)                 /* main */
 
 		for (i = 0; token != NULL; i++)
 		{
-			argv[i] = malloc(sizeof(char) * _strlen(token));
+			argv[i] = malloc(sizeof(char) * (_strlen(token) +1)); /* add +1*/
 			_strcpy(argv[i], token);
 			token = strtok(NULL, delim);
 		}
@@ -154,7 +155,8 @@ int main(int argc, char **argv)                 /* main */
 		printf("%s\n", lineptr);
 
 		free(lineptr);
-		while (j < i)
+		j = 0;
+		while (argv[j] != NULL);
 		{
 			free(argv[j]);
 			j++;
