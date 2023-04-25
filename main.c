@@ -72,7 +72,7 @@ int main(int argc, char **argv)                 /* main */
 	char *lineptr = NULL;
 	char *lineptr_duplicate = NULL;
 	size_t n = 0;
-	size_t inputLength;
+	ssize_t inputLength;
 	const char *delim = " \t\r\n\a";
 	int number_tokens = 0;
 	char *token;
