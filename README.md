@@ -1,5 +1,7 @@
 ## C - Simple Shell		
 
+
+School Proyect 
 Write a UNIX command line interpreter.
 
 
@@ -11,6 +13,7 @@ If an executable cannot be found, print an error message and display the prompt 
 Handle errors.
 You have to handle the “end of file” condition (Ctrl+D).
 
+-----------------------------------------------------------------------------------------------------------
 
 The shell is the interface between the user and the operating system.
 
