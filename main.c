@@ -165,7 +165,7 @@ int main(int argc, char **argv)                 /* main */
 		}
 		free(argv);
 	}
-/*	free(argv); */
+	free(argv);
 
 	return (0);
 }
