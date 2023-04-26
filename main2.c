@@ -154,7 +154,7 @@ int main(int argc, char **argv)                 /* main */
 		else if (_strcmp(argv[0], "env") == 0)
 			/* Agregar un comando para mostrar el valor de la variable PATH */
 		{
-			printf("PATH: %s\n", getenv("PATH"));
+			print_path();
 		}
 		else if (_strcmp(argv[0], "exit") == 0)
 		{
