@@ -55,6 +55,18 @@ Moreover, a process can use function getpid() to retrieve the process ID assigne
 Therefore, after the system call to fork(), a simple test can tell which process is the child.
   ~~~
   
+  La función  getline se utiliza para leer una línea de entrada de un flujo de entrada (en este caso, la entrada estándar, es decir, el teclado)
+  
+imputLength = getline(&lineptr, &n, stdin);
+Esto asigna a lineptr el valor de la línea que se ingresa desde el teclado. El tamaño del búfer se almacena en n.
+ La variable imputLength contendrá el número de caracteres leídos, incluyendo el carácter nulo final.
+
+ en este programa los argumentos no son tomados directamente de la línea de comando, sino que se toman a través de la función getline() y se almacenan
+ en una cadena de caracteres llamada lineptr. Luego, esta cadena es procesada para separar los argumentos
+ utilizando la función strtok() y se almacenan en un array de cadenas de caracteres llamado argv
+ En resumen, los argumentos son leídos desde la entrada estándar usando getline(), se almacenan en una cadena de caracteres, se separan utilizando strtok()
+ y se almacenan en un array de cadenas de caracteres
+  
   ## /* site under construcction */
 
 El programa utiliza las funciones fork(), execvp() y waitpid() para crear un proceso hijo que ejecuta comandos externos,
