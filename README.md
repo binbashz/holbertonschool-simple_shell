@@ -45,6 +45,18 @@ Dentro del bucle while principal, el programa imprime el mensaje de prompt, lee 
 Después de que el arreglo de argumentos se ha construido, el programa utiliza strcmp() para determinar si el comando ingresado es interno o externo. Si el comando es interno, se llama a la función execute_internal_command(), de lo contrario, se llama a la función execute_external_command().
 
 
-			  
-			  
+/*			  
+			  _strcmp
+Compara dos cadenas de texto
+
+<string.h> /* header */
+
+Declaración: int strcmp(const char *cadena1, const char *cadena2);
+
+Parámetros: Las dos cadenas a comparar
+
+Valor devuelto: Un número entero
+
+Detalles:
+Devuelve 0 si las cadenas de texto son iguales (incluyendo mayúsculas y minúsculas); si la primera cadena es mayor que la segunda, devuelve un número positivo; si es mayor la segunda, devuelve un valor negativo. */
 		
