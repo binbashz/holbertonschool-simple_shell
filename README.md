@@ -29,16 +29,22 @@ getline() reads an entire line from stream, storing the address
   
   
   ## /* site under construcction */
-			  
-El codigo tiene una función execute_external_command que crea un proceso hijo utilizando la función fork() y luego ejecuta un comando externo en el proceso hijo utilizando la función execvp(). El proceso padre espera a que el proceso hijo termine utilizando la función waitpid(). Esta función también libera la memoria asignada a la variable argv. Esta función devuelve 0 si tiene éxito y -1 si falla.
 
-El programa también tiene una función execute_internal_command que maneja comandos internos como "cd" o "exit". /* FIX FUNCTION */ devuelve 0.
+El programa utiliza las funciones fork(), execvp() y waitpid() para crear un proceso hijo que ejecuta comandos externos, y espera a que el proceso hijo termine antes de continuar. También incluye la implementación de una función execute_internal_command() para manejar comandos internos como "cd" o "exit".
 
-El bucle principal del programa (main()) imprime un mensaje de indicador ((my_sh) c:\\>>$ ), lee la entrada del usuario con getline(), y utiliza strtok() para dividir la línea ingresada en tokens (palabras) utilizando como delimitadores los caracteres espacio, tabulación, nueva línea.
+El programa comienza con la declaración de dos funciones: execute_external_command() y execute_internal_command(). La primera función maneja la ejecución de comandos externos, mientras que la segunda maneja comandos internos.
 
-Luego, el programa cuenta la cantidad de tokens, asigna memoria para un array de punteros a char y almacena cada token en este array.
+La función execute_external_command() recibe un arreglo de cadenas que contiene los argumentos para el comando externo. Primero crea un proceso hijo utilizando fork(). Si el valor de retorno de fork() es cero, el proceso hijo ejecuta el comando utilizando execvp(). Si el valor de retorno de fork() es negativo, se imprime un mensaje de error y se devuelve -1. Si el valor de retorno de fork() es mayor que cero, el proceso padre espera a que el proceso hijo termine utilizando waitpid(), y luego libera la memoria asignada para el arreglo de argumentos.
 
-Finalmente, el programa determina si el comando ingresado es interno o externo. Si es un comando interno, llama a execute_internal_command(). Si es un comando externo, llama a execute_external_command(). El bucle principal se repite hasta que el usuario ingrese EOF o el comando "exit".
+La función execute_internal_command() recibe un arreglo de cadenas que contiene los argumentos para el comando interno. En esta implementación, esta función no hace nada, ya que no se han implementado comandos internos.
+
+La función principal del programa es main(). La función comienza con la declaración de algunas variables, incluyendo un mensaje de prompt para el usuario, un puntero a la línea ingresada por el usuario y el tamaño de la línea, un delimitador para el tokenizador, y contadores para los bucles.
+
+Dentro del bucle while principal, el programa imprime el mensaje de prompt, lee la entrada del usuario utilizando getline(), y luego utiliza strtok() para dividir la línea ingresada en palabras. El programa utiliza malloc() para asignar memoria para un arreglo de punteros a char, y luego utiliza strtok() de nuevo para almacenar cada palabra en el arreglo.
+
+Después de que el arreglo de argumentos se ha construido, el programa utiliza strcmp() para determinar si el comando ingresado es interno o externo. Si el comando es interno, se llama a la función execute_internal_command(), de lo contrario, se llama a la función execute_external_command().
+
+
 			  
 			  
 		
