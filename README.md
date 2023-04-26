@@ -19,6 +19,11 @@ The shell is the interface between the user and the operating system.
 
 The shell is an executable file (program) that acts as an intermediary between the operating system and the user who enters commands in text mode.
 Its function is to read the command line, interpret its meaning, execute the command and then output the result via the outputs.
+Shell Programs
+A shell program is an application that allows interacting with the computer. In a shell the user 
+can run programs and also redirect the input to come from a file and output to come from a 
+file. Shells also provide programming constructions such as if, for, while, functions, variables 
+etc. Additionally, shell programs offer features such as line editing, history.
 
 
 
@@ -26,6 +31,18 @@ getline() reads an entire line from stream, storing the address
        of the buffer containing the text into *lineptr.  The buffer is
        null-terminated and includes the newline character, if one was
        found.
+       
+   Los procesos en Linux, o en cualquier sistema operativo unix, son creados en base a un proceso ya existente mediante un mecanismo de clonación, o fork.
+   Un proceso en Linux genera un nuevo proceso para que realice una tarea determinada, y este nuevo proceso es considerado proceso hijo del proceso anterior, al que llamaremos padre
+   El PID, o Process ID, es un número entero que identifica unívocamente a cada proceso en una tabla de procesos administrada por el kernel Linux. Esta tabla de procesos mantiene una entrada por cada uno de los procesos que están en ejecución en el sistema en el momento actual
+   
+   fork() — Create a new process
+   System call fork() is used to create processes. It takes no arguments and returns a process ID. The purpose of fork() is to create a new process, which becomes the child process of the caller. After a new child process is created, both processes will execute the next instruction following the fork() system call. Therefore, we have to distinguish the parent from the child. This can be done by testing the returned value of fork():
+
+If fork() returns a negative value, the creation of a child process was unsuccessful.
+fork() returns a zero to the newly created child process.
+fork() returns a positive value, the process ID of the child process, to the parent. The returned process ID is of type pid_t defined in sys/types.h. Normally, the process ID is an integer. Moreover, a process can use function getpid() to retrieve the process ID assigned to this process.
+Therefore, after the system call to fork(), a simple test can tell which process is the child.
   
   
   ## /* site under construcction */
