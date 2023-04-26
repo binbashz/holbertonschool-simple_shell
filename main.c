@@ -34,7 +34,6 @@ int execute_external_command(char **argv)
 	{
 		/* This is the parent process */
 		waitpid(pid, &status, 0); /* espera a que el proceso hijo termine */
-		 free(argv); /* free th argv array   */
 	}
 	return (0);
 }
@@ -78,7 +77,7 @@ int main(int argc, char **argv)                 /* main */
 	const char *delim = " \t\r\n\a"; /* delimitadores para el tokenizador */
 	int number_tokens = 0; /* numero total de tokens en la linea */
 	char *token; /* puntero a cada token */
-	int i, j = 0; /* contador para bucle */
+	int i;  /* contador para bucle */
 
 	/* declaring void variables */
 	(void)argc;
@@ -100,7 +99,6 @@ int main(int argc, char **argv)                 /* main */
 		lineptr_duplicate = malloc(sizeof(char) * inputLength); /* asiganamos memoria para el duplicado */
 		if (lineptr_duplicate == NULL) /* si malloc falla  al asignar, liberamos al mem prev asignada y salimos del prog*/
 		{
-			free(lineptr_duplicate);
 			perror("memory allocation error");
 			return (-1);
 		}
@@ -123,7 +121,6 @@ int main(int argc, char **argv)                 /* main */
 		argv = malloc(sizeof(char *) * number_tokens); /* se asigna memoria para un array de punteros a char */
 		if (argv == NULL)/* si malloc falla al asignar mem, liberamos la prev asignada y salimos del programa */
 		{
-			free(lineptr_duplicate);
 			perror("oops, memory allocation error");
 				return (-1);
 		}
@@ -165,17 +162,9 @@ int main(int argc, char **argv)                 /* main */
 		}
 		printf("%s\n", lineptr);
 
-		free(lineptr);
-		j = 0;
-
-		while (argv[j] != NULL)
-		{
-			free(argv[j]);
-			j++;
-		}
+		free(lineptr_duplicate);
 		free(argv);
 	}
-	free(argv);
 
 	return (0);
 }
