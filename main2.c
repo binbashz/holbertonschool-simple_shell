@@ -156,6 +156,11 @@ int main(int argc, char **argv)                 /* main */
 		{
 			printf("PATH: %s\n", getenv("PATH"));
 		}
+		else if (_strcmp(argv[0], "exit") == 0)
+		{
+			printf("Exiting the shell... \n");
+			break;
+		}
 		else
 		{
 			execute_external_command(argv);
