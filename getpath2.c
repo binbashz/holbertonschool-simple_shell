@@ -1,18 +1,18 @@
 #include <stdio.h>
-
+#include "main.h"
 /**
- * main - Entry point for the program
+ * _getpath - Entry point for the program
  *
- * @argc: The number of command-line arguments
- * @argv: An array of strings containing the command-line arguments
  * @envp: An array of strings containing the environment variables
  *
  * Return: 0 on success, 1 on failure
  */
 
-int main(int argc, char **argv, char **envp)
+int _getpath(char **envp)
 {
-	for (char **env = envp; *env != 0; env++)
+	char **env;
+
+	for (env = envp; *env != 0; env++)
 	{
 	char *thisEnv = *env;
 

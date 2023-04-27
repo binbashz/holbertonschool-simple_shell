@@ -10,7 +10,8 @@ char *_strcpy(char *dest, char *src);
 int _strlen(char *s);
 int _strcmp(char *s1, char *s2);
 char *get_env(char *command);
-void print_path();
+void print_path(void);
 int _strncmp(const char *s1, const char *s2, size_t n);
+int _getpath(char **envp);
 extern char **environ;
 #endif

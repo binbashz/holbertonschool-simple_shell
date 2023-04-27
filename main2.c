@@ -42,7 +42,8 @@ int execute_external_command(char **argv)
 /**
  *  execute_internal_command - Executes a command built into the shell.
  *  @argv: an array of arguments passed to the function
- * This function handles internal shell commands such as "cd" or "exit".
+ * This function handles internal shell commands such as "cd".
+ * 
  * Return: 0 on success.
  *
  **/
@@ -50,10 +51,13 @@ int execute_external_command(char **argv)
 
 int execute_internal_command(char **argv)
 {
-	(void)argv; /* evita la advertencia de paramero sin usar */
 	/* Handle the internal command here */
-	/* maneja el comando interno aqui */
-
+	if (_strcmp(argv[0], "cd") == 0)
+	{
+		char * directory;
+		directory = *argv;
+		chdir(directory);
+	}
 	return (0);
 }
 
@@ -158,7 +162,6 @@ int main(int argc, char **argv)                 /* main */
 		}
 		else if (_strcmp(argv[0], "exit") == 0)
 		{
-			printf("Exiting the shell... \n");
 			break;
 		}
 		else
