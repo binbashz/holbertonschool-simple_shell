@@ -37,9 +37,8 @@ etc. Additionally, shell programs offer features such as line editing, history.
   child process of the previous process, which we will call parent.
   The PID, or Process ID, is an integer that uniquely identifies each process in a table of processes
   managed by the a process table managed by the Linux kernel. This process table maintains
-  an entry for each of the processes currently running on the system.
+  an entry for each of the processes currently running on the system. 
 
-   
  fork() — Create a new process
  System call fork() is used to create processes. It takes no arguments and returns a process ID. 
  The purpose of fork() is to create a new process, which becomes the child process of the caller. 
@@ -61,6 +60,11 @@ getline() reads an entire line from stream, storing the address
        null-terminated and includes the newline character, if one was
        found.
   ~~~
+  
+  
+  ![process readme](https://user-images.githubusercontent.com/124454895/234963916-7dba232f-8948-4be6-90ce-3b2b2d8e7f76.png)
+
+  
   
   The getline function is used to read an input line from an input stream (in this case, the standard input, i.e. the keyboard).
   
