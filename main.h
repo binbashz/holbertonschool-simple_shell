@@ -12,4 +12,5 @@ int _strcmp(char *s1, char *s2);
 char *get_env(char *command);
 void print_path();
 int _strncmp(const char *s1, const char *s2, size_t n);
+extern char **environ;
 #endif
