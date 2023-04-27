@@ -43,7 +43,7 @@ int execute_external_command(char **argv)
  *  execute_internal_command - Executes a command built into the shell.
  *  @argv: an array of arguments passed to the function
  * This function handles internal shell commands such as "cd".
- * 
+ *
  * Return: 0 on success.
  *
  **/
@@ -54,8 +54,10 @@ int execute_internal_command(char **argv)
 	/* Handle the internal command here */
 	if (_strcmp(argv[0], "cd") == 0)
 	{
-		char * directory;
+		char *directory;
+
 		directory = *argv;
+
 		chdir(directory);
 	}
 	return (0);
@@ -103,8 +105,8 @@ int main(int argc, char **argv)                 /* main */
 		}
 
 		/* allocate space for a copy of the lineptr */
-		lineptr_duplicate = malloc(sizeof(char) * inputLength); /* asiganamos memoria para el duplicado */
-		if (lineptr_duplicate == NULL) /* si malloc falla  al asignar, liberamos al mem prev asignada y salimos del prog*/
+		lineptr_duplicate = malloc(sizeof(char) * inputLength);
+		if (lineptr_duplicate == NULL)
 		{
 			perror("memory allocation error");
 			return (-1);
@@ -115,7 +117,7 @@ int main(int argc, char **argv)                 /* main */
 
 		/********** split the string (lineptr) into an array of words ********/
 		/* calculate the total number of tokens */
-		token = strtok(lineptr, delim); /* se separa la cadena en palabras ,utilizando el delimitador */
+		token = strtok(lineptr, delim); /* se separa la cadena ,util el delim */
 
 		while (token != NULL) /* se cuentan la cantidad de palabras */
 		{
@@ -125,18 +127,18 @@ int main(int argc, char **argv)                 /* main */
 		number_tokens++;
 
 		/* Allocate space to hold the array of strings */
-		argv = malloc(sizeof(char *) * number_tokens); /* se asigna memoria para un array de punteros a char */
-		if (argv == NULL)/* si malloc falla al asignar mem, liberamos la prev asignada y salimos del programa */
+		argv = malloc(sizeof(char *) * number_tokens);
+		if (argv == NULL)
 		{
 			perror("oops, memory allocation error");
 				return (-1);
 		}
 		/* Store each token in the array argv  */
-		token = strtok(lineptr_duplicate, delim); /*  se espera la cadena en palabras utilizando el delimitador especifico */
+		token = strtok(lineptr_duplicate, delim);
 
-		for (i = 0; token != NULL; i++) /* se almacena cada palabra en el array argv */
+		for (i = 0; token != NULL; i++) /* se almacena cada palabra en array argv*/
 		{
-			argv[i] = malloc(sizeof(char) * (_strlen(token) + 1)); /* se asigna memoria para la palabra actual y se almacena en argv */
+			argv[i] = malloc(sizeof(char) * (_strlen(token) + 1));
 			_strcpy(argv[i], token);
 			token = strtok(NULL, delim);
 		}
