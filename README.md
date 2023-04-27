@@ -31,13 +31,14 @@ getline() reads an entire line from stream, storing the address
        null-terminated and includes the newline character, if one was
        found.
        
-   Los procesos en Linux, o en cualquier sistema operativo unix, son creados en base a un proceso
-   ya existente mediante un mecanismo de clonación, o fork.
-   Un proceso en Linux genera un nuevo proceso para que realice una tarea determinada, y este
-   nuevo proceso es considerado proceso hijo del proceso anterior, al que llamaremos padre
-   El PID, o Process ID, es un número entero que identifica unívocamente a cada proceso en 
-   una tabla de procesos administrada por el kernel Linux. Esta tabla de procesos mantiene
-   una entrada por cada uno de los procesos que  están en ejecución en el sistema en el momento actual
+   Processes in Linux, or in any unix operating system, are created based on an existing process by means of a cloning mechanism, or fork.
+   existing process by means of a cloning mechanism, or fork.
+   A Linux process spawns a new process to perform a given task, and this new process is considered a child process of the previous process
+   , which we will call parent.process is considered a child process of the previous process, which we will call parent.
+   The PID, or Process ID, is an integer that uniquely identifies each process in a table of processes managed by the 
+   a process table managed by the Linux kernel. This process table maintains
+   an entry for each of the processes currently running on the system.
+
    
   fork() — Create a new process
    System call fork() is used to create processes. It takes no arguments and returns a process ID. 
@@ -55,50 +56,38 @@ Moreover, a process can use function getpid() to retrieve the process ID assigne
 Therefore, after the system call to fork(), a simple test can tell which process is the child.
   ~~~
   
-  La función  getline se utiliza para leer una línea de entrada de un flujo de entrada (en este caso, la entrada estándar, es decir, el teclado)
+  The getline function is used to read an input line from an input stream (in this case, the standard input, i.e. the keyboard).
   
 imputLength = getline(&lineptr, &n, stdin);
-Esto asigna a lineptr el valor de la línea que se ingresa desde el teclado. El tamaño del búfer se almacena en n.
- La variable imputLength contendrá el número de caracteres leídos, incluyendo el carácter nulo final.
+This assigns to lineptr the value of the line entered from the keyboard. The size of the buffer is stored in n.
+ The variable imputLength will contain the number of characters read, including the final null character.
 
- en este programa los argumentos no son tomados directamente de la línea de comando, sino que se toman a través de la función getline() y se almacenan
- en una cadena de caracteres llamada lineptr. Luego, esta cadena es procesada para separar los argumentos
- utilizando la función strtok() y se almacenan en un array de cadenas de caracteres llamado argv
- En resumen, los argumentos son leídos desde la entrada estándar usando getline(), se almacenan en una cadena de caracteres, se separan utilizando strtok()
- y se almacenan en un array de cadenas de caracteres
+ in this program the arguments are not taken directly from the command line, but are taken via the getline() function and stored in a string called lineptr.
+ string called lineptr. This string is then processed to separate the arguments using the strtok() function and stored in an array of strings.
+ using the strtok() function and stored in an array of character strings called argv
+ In summary, the arguments are read from the standard input using getline(), stored in a string, separated using strtok()
+ and stored in an array of character strings
+
+
   
-  ## /* site under construcction */
+The program uses the fork(), execvp() and waitpid() functions to create a child process that executes external commands,
+and waits for the child process to terminate before continuing. It also includes the implementation of an execute_internal_command() function to handle internal commands such as "cd", "cd", "cd", "cd" and "cd".
+function to handle internal commands such as "cd" or "exit".
 
-El programa utiliza las funciones fork(), execvp() y waitpid() para crear un proceso hijo que ejecuta comandos externos,
-y espera a que el proceso hijo termine antes de continuar. También incluye la implementación de una función execute_internal_command()
-para manejar comandos internos como "cd" o "exit".
+The program begins with the declaration of two functions: execute_external_command() and execute_internal_command(). The first function handles 
+the execution of external commands, while the second handles internal commands.
 
-El programa comienza con la declaración de dos funciones: execute_external_command() y execute_internal_command(). La primera función maneja 
-la ejecución de comandos externos, mientras que la segunda maneja comandos internos.
+The execute_external_command() function receives an array of strings containing the arguments for the external command. It first creates a child process using fork(). If the return value of fork() is zero, the child process executes the command using execvp(). If the return value of fork() is negative, an error message is printed and -1 is returned. If the return value of fork() is greater than zero, the parent process waits for the child process to finish using waitpid(), and then frees the memory allocated for the argument array.
 
-La función execute_external_command() recibe un arreglo de cadenas que contiene los argumentos para el comando externo. Primero crea un proceso hijo utilizando fork(). Si el valor de retorno de fork() es cero, el proceso hijo ejecuta el comando utilizando execvp(). Si el valor de retorno de fork() es negativo, se imprime un mensaje de error y se devuelve -1. Si el valor de retorno de fork() es mayor que cero, el proceso padre espera a que el proceso hijo termine utilizando waitpid(), y luego libera la memoria asignada para el arreglo de argumentos.
+The execute_internal_command() function receives a string array containing the arguments for the internal command. In this implementation, this function does nothing, since no internal commands have been implemented.
 
-La función execute_internal_command() recibe un arreglo de cadenas que contiene los argumentos para el comando interno. En esta implementación, esta función no hace nada, ya que no se han implementado comandos internos.
+The main function of the program is main(). The function begins with the declaration of some variables, including a prompt message to the user, a pointer to the line entered by the user and the size of the line, a delimiter for the tokenizer, and counters for the loops.
 
-La función principal del programa es main(). La función comienza con la declaración de algunas variables, incluyendo un mensaje de prompt para el usuario, un puntero a la línea ingresada por el usuario y el tamaño de la línea, un delimitador para el tokenizador, y contadores para los bucles.
+Within the main while loop, the program prints the prompt message, reads the user input using getline(), and then uses strtok() to split the entered line into words. The program uses malloc() to allocate memory for an array of pointers to char, and then uses strtok() again to store each word in the array.
 
-Dentro del bucle while principal, el programa imprime el mensaje de prompt, lee la entrada del usuario utilizando getline(), y luego utiliza strtok() para dividir la línea ingresada en palabras. El programa utiliza malloc() para asignar memoria para un arreglo de punteros a char, y luego utiliza strtok() de nuevo para almacenar cada palabra en el arreglo.
-
-Después de que el arreglo de argumentos se ha construido, el programa utiliza strcmp() para determinar si el comando ingresado es interno o externo. Si el comando es interno, se llama a la función execute_internal_command(), de lo contrario, se llama a la función execute_external_command().
+After the argument array has been constructed, the program uses strcmp() to determine whether the command entered is internal or external. If the command is internal, the execute_internal_command() function is called, otherwise the execute_external_command() function is called.
 
 
-/*			  
-			  _strcmp
-Compara dos cadenas de texto
 
-<string.h> /* header */
+		  
 
-Declaración: int strcmp(const char *cadena1, const char *cadena2);
-
-Parámetros: Las dos cadenas a comparar
-
-Valor devuelto: Un número entero
-
-Detalles:
-Devuelve 0 si las cadenas de texto son iguales (incluyendo mayúsculas y minúsculas); si la primera cadena es mayor que la segunda, devuelve un número positivo; si es mayor la segunda, devuelve un valor negativo. */
-		
