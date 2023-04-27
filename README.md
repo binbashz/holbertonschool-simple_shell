@@ -71,8 +71,8 @@ This assigns to lineptr the value of the line entered from the keyboard. The siz
 
   
 The program uses the fork(), execvp() and waitpid() functions to create a child process that executes external commands,
-and waits for the child process to terminate before continuing. It also includes the implementation of an execute_internal_command() function to handle internal commands such as "cd", "cd", "cd", "cd" and "cd".
-function to handle internal commands such as "cd" or "exit".
+and waits for the child process to terminate before continuing. It also includes the implementation of an execute_internal_command() function to handle internal commands such as "exit",  and "cd".
+
 
 The program begins with the declaration of two functions: execute_external_command() and execute_internal_command(). The first function handles 
 the execution of external commands, while the second handles internal commands.
