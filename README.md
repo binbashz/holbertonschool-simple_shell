@@ -25,7 +25,8 @@ can run programs and also redirect the input to come from a file and output to c
 file. Shells also provide programming constructions such as if, for, while, functions, variables 
 etc. Additionally, shell programs offer features such as line editing, history.
 
-![kernel layout](https://user-images.githubusercontent.com/124454895/234960626-c8162698-6715-4db6-8f7f-97f3848a8910.png)
+![kernel layout](https://user-images.githubusercontent.com/124454895/234965806-232ecab7-9666-468d-8de1-029d39bed253.png)
+
 
 
 ### Processes in Linux ,
