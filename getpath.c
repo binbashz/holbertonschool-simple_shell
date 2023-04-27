@@ -1,26 +1,34 @@
+/**
+ *  print_path - print the env
+ *   when you call them
+ *  iniciar - inica e es
+ */
+
+
+
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 extern char **environ;
 
-void print_path()
+void print_path(void)
 {
 	char **env = environ;
-	while (*env != NULL) 
+
+	while (*env != NULL)
+
 	{
-	if (_strncmp(*env, "PATH=", 5) == 0) 
+	if (_strncmp(*env, "PATH=", 5) == 0)
 	{
 	printf("%s\n", *env + 5);
 	break;
-	
+
 	}
 	env++;
-   }
+	}
 }
 
-int iniciar() {
+int iniciar(void)
+{
 	print_path();
 	return (0);
 }
