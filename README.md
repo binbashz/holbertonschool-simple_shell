@@ -25,38 +25,38 @@ can run programs and also redirect the input to come from a file and output to c
 file. Shells also provide programming constructions such as if, for, while, functions, variables 
 etc. Additionally, shell programs offer features such as line editing, history.
 
-
+### Processes in Linux ,
 ~~~
-getline() reads an entire line from stream, storing the address
-       of the buffer containing the text into *lineptr.  The buffer is
-       null-terminated and includes the newline character, if one was
-       found.
-       
-   Processes in Linux, or in any unix operating system, are created based on an existing process 
-   by means of a cloning mechanism,or fork.existing process by means of a cloning mechanism, or fork.
-   A Linux process spawns a new process to perform a given task, and this new process is considered a 
-   child process of the previous process , which we will call parent.process is considered a
-   child process of the previous process, which we will call parent.
-   The PID, or Process ID, is an integer that uniquely identifies each process in a table of processes
-   managed by the a process table managed by the Linux kernel. This process table maintains
-   an entry for each of the processes currently running on the system.
+  or in any unix operating system, are created based on an existing process 
+  by means of a cloning mechanism,or fork.existing process by means of a cloning mechanism, or fork.
+  A Linux process spawns a new process to perform a given task, and this new process is considered a 
+  child process of the previous process , which we will call parent.process is considered a
+  child process of the previous process, which we will call parent.
+  The PID, or Process ID, is an integer that uniquely identifies each process in a table of processes
+  managed by the a process table managed by the Linux kernel. This process table maintains
+  an entry for each of the processes currently running on the system.
 
    
-  fork() — Create a new process
-   System call fork() is used to create processes. It takes no arguments and returns a process ID. 
-   The purpose of fork() is to create a new process, which becomes the child process of the caller. 
-   After a new child process is created, both processes will execute the next instruction following 
-   the fork() system call. 
-   Therefore, we have to distinguish the parent from the child. This can be done by testing the
-   returned value of fork():
+ fork() — Create a new process
+ System call fork() is used to create processes. It takes no arguments and returns a process ID. 
+ The purpose of fork() is to create a new process, which becomes the child process of the caller. 
+ After a new child process is created, both processes will execute the next instruction following 
+ the fork() system call. 
+ Therefore, we have to distinguish the parent from the child. This can be done by testing the
+ returned value of fork():
 
-If fork() returns a negative value, the creation of a child process was unsuccessful.
+if fork() returns a negative value, the creation of a child process was unsuccessful.
 fork() returns a zero to the newly created child process.
 fork() returns a positive value, the process ID of the child process, to the parent. 
 The returned process ID is of type pid_t defined in sys/types.h. Normally,
 the process ID is an integer. Moreover, a process can use function getpid() to retrieve 
 the process ID assigned to this process.
 Therefore, after the system call to fork(), a simple test can tell which process is the child.
+
+getline() reads an entire line from stream, storing the address
+       of the buffer containing the text into *lineptr.  The buffer is
+       null-terminated and includes the newline character, if one was
+       found.
   ~~~
   
   The getline function is used to read an input line from an input stream (in this case, the standard input, i.e. the keyboard).
@@ -72,7 +72,7 @@ This assigns to lineptr the value of the line entered from the keyboard. The siz
  and stored in an array of character strings
 
 
-  
+ #### Flow of the built "shell"
 The program uses the fork(), execvp() and waitpid() functions to create a child process that executes external commands,
 and waits for the child process to terminate before continuing. It also includes the implementation of an execute_internal_command() function to handle internal commands such as "exit",  and "cd".
 
