@@ -1,10 +1,51 @@
-man page for a simple shell project
-
-.SH NAME shell
-
+.TH my_sh 1 "2023-04-30" "v1.0" "User Commands"
+.SH NAME
+my_sh \- a simple shell program
 .SH SYNOPSIS
+.B my_sh
+[\fIOPTIONS\fR]
 
-.SH DESCRITION
+
+.SH DESCRIPTION
+my_sh is a simple shell program that can execute both internal and external commands. This program reads input from the user,
+ determines whether the command entered is an internal or external command, and executes it accordingly.
+
+.SH OPTIONS
+
+To use my_sh, simply run the program in the command line. Once the program is running, a prompt message will be displayed. Enter a command and
+ press Enter to execute it. There are two types of commands that can be executed: internal commands and external commands.
+
+Internal commands are built into the shell program, and are executed by the execute_internal_command function. 
+To execute an internal command, simply enter the command name and any required arguments. The following internal commands are available:
 
 .PP
-take commands from a user and execute them in the system
+.B cd
+Changes the current working directory.
+
+.PP
+.B exit
+Exits the shell program.
+
+External commands are not built into the shell program, and are executed by the execute_external_command function.
+ To execute an external command, enter the command name and any required arguments.
+ The command will be executed in a child process, and the output will be displayed in the shell program.
+ If the command fails to execute, an error message will be displayed.
+
+.SH FUNCTIONS
+This program contains the following functions:
+
+.PP
+.B execute_external_command
+Executes a command not built into the shell program. This function creates a child process and attempts to execute the command specified in the argv array. 
+If successful, the child process will run the command and then terminate. The parent process will wait for the child to complete execution before terminating.
+
+.PP
+.B execute_internal_command
+Executes a command built into the shell program. This function handles internal shell commands such as "cd" or "exit".
+
+.PP
+.B main
+Entry point for the shell program. This function contains the main loop for the shell program.
+ It prints a prompt message, reads input from the user, and determines whether the command entered is an internal or
+ external command. Internal commands are executed by calling the execute_internal_command function, and external
+ commands are executed by calling the execute_external_command function.
