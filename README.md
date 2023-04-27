@@ -35,8 +35,8 @@ getline() reads an entire line from stream, storing the address
    Processes in Linux, or in any unix operating system, are created based on an existing process 
    by means of a cloning mechanism,or fork.existing process by means of a cloning mechanism, or fork.
    A Linux process spawns a new process to perform a given task, and this new process is considered a 
-   child process of the previous process , which we will call parent.process is considered a child process 
-   of the previous process, which we will call parent.
+   child process of the previous process , which we will call parent.process is considered a
+   child process of the previous process, which we will call parent.
    The PID, or Process ID, is an integer that uniquely identifies each process in a table of processes
    managed by the a process table managed by the Linux kernel. This process table maintains
    an entry for each of the processes currently running on the system.
