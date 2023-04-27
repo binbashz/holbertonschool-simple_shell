@@ -16,7 +16,8 @@ You have to handle the “end of file” condition (Ctrl+D).
 
 #### The shell is the interface between the user and the operating system.
 
-The shell is an executable file (program) that acts as an intermediary between the operating system and the user who enters commands in text mode.
+The shell is an executable file (program) that acts as an intermediary between the operating system and the user who enters
+commands in text mode.
 Its function is to read the command line, interpret its meaning, execute the command and then output the result via the outputs.
 Shell Programs
 A shell program is an application that allows interacting with the computer. In a shell the user 
@@ -31,10 +32,10 @@ getline() reads an entire line from stream, storing the address
        null-terminated and includes the newline character, if one was
        found.
        
-   Processes in Linux, or in any unix operating system, are created based on an existing process by means of a cloning mechanism, or fork.
-   existing process by means of a cloning mechanism, or fork.
-   A Linux process spawns a new process to perform a given task, and this new process is considered a child process of the previous process
-   , which we will call parent.process is considered a child process of the previous process, which we will call parent.
+   Processes in Linux, or in any unix operating system, are created based on an existing process by means 
+   of a cloning mechanism,or fork.existing process by means of a cloning mechanism, or fork.
+   A Linux process spawns a new process to perform a given task, and this new process is considered a child process of the previous 
+   process , which we will call parent.process is considered a child process of the previous process, which we will call parent.
    The PID, or Process ID, is an integer that uniquely identifies each process in a table of processes managed by the 
    a process table managed by the Linux kernel. This process table maintains
    an entry for each of the processes currently running on the system.
@@ -62,9 +63,9 @@ imputLength = getline(&lineptr, &n, stdin);
 This assigns to lineptr the value of the line entered from the keyboard. The size of the buffer is stored in n.
  The variable imputLength will contain the number of characters read, including the final null character.
 
- in this program the arguments are not taken directly from the command line, but are taken via the getline() function and stored in a string called lineptr.
- string called lineptr. This string is then processed to separate the arguments using the strtok() function and stored in an array of strings.
- using the strtok() function and stored in an array of character strings called argv
+ in this program the arguments are not taken directly from the command line, but are taken via the getline() function and stored in a string 
+ called lineptr.string called lineptr. This string is then processed to separate the arguments using the strtok() function and stored 
+ in an array of strings.using the strtok() function and stored in an array of character strings called argv
  In summary, the arguments are read from the standard input using getline(), stored in a string, separated using strtok()
  and stored in an array of character strings
 
