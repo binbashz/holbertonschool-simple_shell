@@ -32,13 +32,13 @@ getline() reads an entire line from stream, storing the address
        null-terminated and includes the newline character, if one was
        found.
        
-   Processes in Linux, or in any unix operating system, are created based on an existing process by means 
-   of a cloning mechanism,or fork.existing process by means of a cloning mechanism, or fork.
+   Processes in Linux, or in any unix operating system, are created based on an existing process 
+   by means of a cloning mechanism,or fork.existing process by means of a cloning mechanism, or fork.
    A Linux process spawns a new process to perform a given task, and this new process is considered a 
-   child process of the previous process , which we will call parent.process is considered a child process of 
-   the previous process, which we will call parent.
-   The PID, or Process ID, is an integer that uniquely identifies each process in a table of processes managed by the 
-   a process table managed by the Linux kernel. This process table maintains
+   child process of the previous process , which we will call parent.process is considered a child process 
+   of the previous process, which we will call parent.
+   The PID, or Process ID, is an integer that uniquely identifies each process in a table of processes
+   managed by the a process table managed by the Linux kernel. This process table maintains
    an entry for each of the processes currently running on the system.
 
    
@@ -53,8 +53,9 @@ getline() reads an entire line from stream, storing the address
 If fork() returns a negative value, the creation of a child process was unsuccessful.
 fork() returns a zero to the newly created child process.
 fork() returns a positive value, the process ID of the child process, to the parent. 
-The returned process ID is of type pid_t defined in sys/types.h. Normally, the process ID is an integer. 
-Moreover, a process can use function getpid() to retrieve the process ID assigned to this process.
+The returned process ID is of type pid_t defined in sys/types.h. Normally,
+the process ID is an integer. Moreover, a process can use function getpid() to retrieve 
+the process ID assigned to this process.
 Therefore, after the system call to fork(), a simple test can tell which process is the child.
   ~~~
   
