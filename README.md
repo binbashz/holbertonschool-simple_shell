@@ -64,7 +64,7 @@ getline() reads an entire line from stream, storing the address
   
   ![process readme](https://user-images.githubusercontent.com/124454895/234963916-7dba232f-8948-4be6-90ce-3b2b2d8e7f76.png)
 
-  
+  ------------------------------------------------------------------------------------------------------------------------------
   
   The getline function is used to read an input line from an input stream (in this case, the standard input, i.e. the keyboard).
   
