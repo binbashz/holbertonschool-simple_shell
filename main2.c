@@ -1,4 +1,3 @@
-
 /**
  * execute_external_command - Executes a command not built into the shell.
  * @argv: an array of arguments passed to the function
@@ -21,44 +20,21 @@ int execute_external_command(char **argv)
 
 	if (pid == 0) /* si pid == 0, este es el proceso hijo */
 	{
-	/* This is the child process */
-	execve(argv[0], argv, envp); /* ejecuta el comando */
-	perror("execve error");
-	exit(EXIT_FAILURE); /* termina el proceso hijo */
+		/* This is the child process */
+		execve(argv[0], argv, envp); /* ejecuta el comando */
+		perror("execve error");
+		exit(EXIT_FAILURE); /* termina el proceso hijo */
 	}
 	else if (pid < 0) /* i pid <0, el fork fallor */
 	{
-	/* The fork failed */
-	perror("fork error");
-	return (-1);
+		/* The fork failed */
+		perror("fork error");
+		return (-1);
 	}
 	else /* si pid > 0, este es el proceso padre */
 	{
-	/* This is the parent process */
-	waitpid(pid, &status, 0); /* espera a que el proceso hijo termine */
-	}
-	return (0);
-}
-/**
- *  execute_internal_command - Executes a command built into the shell.
- *  @argv: an array of arguments passed to the function
- * This function handles internal shell commands such as "cd".
- *
- * Return: 0 on success.
- *
- **/
-
-
-int execute_internal_command(char **argv)
-{
-	/* Handle the internal command here */
-	if (_strcmp(argv[0], "cd") == 0)
-	{
-		char *directory;
-
-		directory = *argv;
-
-		chdir(directory);
+		/* This is the parent process */
+		waitpid(pid, &status, 0); /* espera a que el proceso hijo termine */
 	}
 	return (0);
 }
@@ -100,7 +76,7 @@ int main(int argc, char **argv)                 /* main */
 
 		if (inputLength == -1) /* si getline falla, o EOF salimos del programa*/
 		{
-			printf("Exit shell\n");
+
 			return (-1);
 		}
 
@@ -130,8 +106,9 @@ int main(int argc, char **argv)                 /* main */
 		argv = malloc(sizeof(char *) * number_tokens);
 		if (argv == NULL)
 		{
+			free(lineptr_duplicate);
 			perror("oops, memory allocation error");
-				return (-1);
+			return (-1);
 		}
 		/* Store each token in the array argv  */
 		token = strtok(lineptr_duplicate, delim);
@@ -141,27 +118,29 @@ int main(int argc, char **argv)                 /* main */
 			argv[i] = malloc(sizeof(char) * (_strlen(token) + 1));
 			_strcpy(argv[i], token);
 			token = strtok(NULL, delim);
+			if (argv[i] == NULL)
+			{
+				free(lineptr_duplicate);
+				free(argv);
+			}
 		}
 		argv[i] = NULL;
 
 
-/* Determine if the command is internal or external */
+		/* Determine if the command is internal or external */
 
-
-		if (_strcmp(argv[0], "cd") == 0)
-		{
-			execute_internal_command(argv);
-		}
-		else if (_strcmp(argv[0], "ls") == 0)
+		if (_strcmp(argv[0], "ls") == 0)
 		{
 			argv[0] = "/bin/ls";
 			execute_external_command(argv);
 		}
+		/* print the path */
 		else if (_strcmp(argv[0], "env") == 0)
-			/* Agregar un comando para mostrar el valor de la variable PATH */
 		{
-			print_path();
+
+			print_env();
 		}
+
 		else if (_strcmp(argv[0], "exit") == 0)
 		{
 			break;
@@ -170,7 +149,7 @@ int main(int argc, char **argv)                 /* main */
 		{
 			execute_external_command(argv);
 		}
-		printf("%s\n", lineptr);
+		/*	printf("%s\n", lineptr); */
 
 		free(lineptr_duplicate);
 		free(argv);

@@ -6,12 +6,16 @@
 #include <errno.h> /* header perror alert */
 #include <sys/wait.h> /* header for wait */
 #include <unistd.h>
+
+/* globar variable */
+
+extern char **environ;
+/* --------------------------- */
+
 char *_strcpy(char *dest, char *src);
 int _strlen(char *s);
 int _strcmp(char *s1, char *s2);
-char *get_env(char *command);
-void print_path(void);
 int _strncmp(const char *s1, const char *s2, size_t n);
-int _getpath(char **envp);
-extern char **environ;
+/* int print_env(void); */
+int print_env(void);
 #endif
