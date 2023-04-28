@@ -23,12 +23,14 @@ int execute_external_command(char **argv)
 		/* This is the child process */
 		execve(argv[0], argv, envp); /* ejecuta el comando */
 		perror("execve error");
+		free(argv);
 		exit(EXIT_FAILURE); /* termina el proceso hijo */
 	}
 	else if (pid < 0) /* i pid <0, el fork fallor */
 	{
 		/* The fork failed */
 		perror("fork error");
+		free(argv);
 		return (-1);
 	}
 	else /* si pid > 0, este es el proceso padre */
@@ -62,7 +64,7 @@ int main(int argc, char **argv)                 /* main */
 	const char *delim = " \t\r\n\a"; /* delimitadores para el tokenizador */
 	int number_tokens = 0; /* numero total de tokens en la linea */
 	char *token; /* puntero a cada token */
-	int i;  /* contador para bucle */
+	int i, j = 0;  /* contador para bucle */
 
 	/* declaring void variables */
 	(void)argc;
@@ -76,7 +78,7 @@ int main(int argc, char **argv)                 /* main */
 
 		if (inputLength == -1) /* si getline falla, o EOF salimos del programa*/
 		{
-
+			free(lineptr);
 			return (-1);
 		}
 
@@ -153,6 +155,11 @@ int main(int argc, char **argv)                 /* main */
 		}
 		/*	printf("%s\n", lineptr); */
 		free(lineptr_duplicate);
+		while (j < number_tokens - 1)
+		{
+			free(argv[i]);
+			j++;
+		}
 		free(argv);
 	}
 
