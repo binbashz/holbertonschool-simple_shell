@@ -100,5 +100,8 @@ After the argument array has been constructed, the program uses strcmp() to dete
 
 
 
+<img width="429" alt="flow my shell" src="https://user-images.githubusercontent.com/124454895/235256606-e98a79b7-72ca-43cd-b5f8-f0f6598d5b71.png">
+
+
 		  
 
