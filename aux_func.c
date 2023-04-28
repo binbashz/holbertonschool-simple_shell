@@ -9,20 +9,16 @@
 
 char *_strcpy(char *dest, char *src)
 {
+	int i;
+	char *dest_start; /* save the star of the destination */
 
-	char *dest_start = dest; /* save the star of the destination */
-
-	while (*src != '\0')  /* Copy the contents of src to dest */
+	for (i = 0; src[i] != '\0'; i++)  /* Copy the contents of src to dest */
 	{
 
-		*dest = *src;
-
-		dest++;
-
-		src++;
+		dest[i] = src[i];
 	}
-
-	*dest = '\0'; /* add the null terminator to the end of dest */
+	/*dest[i] = '\0'; *add the null terminator to the end of dest */
+	dest_start = dest;
 
 	return (dest_start);
 }

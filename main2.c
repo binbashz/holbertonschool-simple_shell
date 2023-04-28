@@ -64,7 +64,7 @@ int main(int argc, char **argv)                 /* main */
 	const char *delim = " \t\r\n\a"; /* delimitadores para el tokenizador */
 	int number_tokens = 0; /* numero total de tokens en la linea */
 	char *token; /* puntero a cada token */
-	int i, j = 0;  /* contador para bucle */
+	int i;  /* contador para bucle */
 
 	/* declaring void variables */
 	(void)argc;
@@ -87,6 +87,7 @@ int main(int argc, char **argv)                 /* main */
 		if (lineptr_duplicate == NULL)
 		{
 			perror("memory allocation error");
+			free (lineptr);
 			return (-1);
 		}
 
@@ -108,6 +109,7 @@ int main(int argc, char **argv)                 /* main */
 		argv = malloc(sizeof(char *) * number_tokens);
 		if (argv == NULL)
 		{
+			free(lineptr);
 			free(lineptr_duplicate);
 			perror("oops, memory allocation error");
 			return (-1);
@@ -120,6 +122,7 @@ int main(int argc, char **argv)                 /* main */
 			argv[i] = malloc(sizeof(char) * (_strlen(token) + 1));
 			if (argv[i] == NULL)
 			{
+				free(lineptr);
 				free(lineptr_duplicate);
 				free(argv);
 				perror("memory allocation error");
@@ -141,27 +144,24 @@ int main(int argc, char **argv)                 /* main */
 		/* print the path */
 		else if (_strcmp(argv[0], "env") == 0)
 		{
-
 			print_env();
 		}
 
 		else if (_strcmp(argv[0], "exit") == 0)
 		{
+			free(lineptr_duplicate);
+			for(; i > 0; i--)
+				free(argv[i]);
+			free(argv);
 			break;
 		}
 		else
 		{
 			execute_external_command(argv);
 		}
-		/*	printf("%s\n", lineptr); */
-		free(lineptr_duplicate);
-		while (j < number_tokens - 1)
-		{
+		for (; i > 0; i--)
 			free(argv[i]);
-			j++;
-		}
 		free(argv);
 	}
-
 	return (0);
 }
