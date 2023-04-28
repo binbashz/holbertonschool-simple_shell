@@ -116,13 +116,15 @@ int main(int argc, char **argv)                 /* main */
 		for (i = 0; token != NULL; i++) /* se almacena cada palabra en array argv*/
 		{
 			argv[i] = malloc(sizeof(char) * (_strlen(token) + 1));
-			_strcpy(argv[i], token);
-			token = strtok(NULL, delim);
 			if (argv[i] == NULL)
 			{
 				free(lineptr_duplicate);
 				free(argv);
+				perror("memory allocation error");
+				return (-1);
 			}
+			_strcpy(argv[i], token);
+			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
 
@@ -150,7 +152,6 @@ int main(int argc, char **argv)                 /* main */
 			execute_external_command(argv);
 		}
 		/*	printf("%s\n", lineptr); */
-
 		free(lineptr_duplicate);
 		free(argv);
 	}

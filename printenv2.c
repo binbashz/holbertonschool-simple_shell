@@ -17,5 +17,5 @@ int print_env(void)
 	{
 		printf("%s\n", environ[i]);
 	}
-	return(0);
+	return (0);
 }
