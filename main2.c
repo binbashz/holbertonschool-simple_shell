@@ -60,7 +60,7 @@ int main(int argc, char **argv)                 /* main */
 	char *lineptr = NULL; /* puntero a la linea ingresada por el usuario */
 	char *lineptr_duplicate = NULL; /* copia de lineptr */
 	size_t n = 0; /* tamano de la linea ingresada */
-	ssize_t inputLength; /* longitud de la linea igresada */
+	ssize_t inputLength = 0; /* longitud de la linea igresada */
 	const char *delim = " \t\r\n\a"; /* delimitadores para el tokenizador */
 	int number_tokens = 0; /* numero total de tokens en la linea */
 	char *token; /* puntero a cada token */

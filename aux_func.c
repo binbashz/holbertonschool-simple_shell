@@ -10,17 +10,13 @@
 char *_strcpy(char *dest, char *src)
 {
 	int i;
-	char *dest_start; /* save the star of the destination */
 
 	for (i = 0; src[i] != '\0'; i++)  /* Copy the contents of src to dest */
 	{
 
 		dest[i] = src[i];
 	}
-	/*dest[i] = '\0'; *add the null terminator to the end of dest */
-	dest_start = dest;
-
-	return (dest_start);
+	return (dest);
 }
 
 /**
@@ -41,24 +37,24 @@ int _strlen(char *s)
 }
 
 
+
 /**
- * _strcmp - a function that comapre two string
- *  @s1: - the first pointer to the string
- *  @s2: - the second pointer to the string
- *     *Return: an int
- */
+* _strcmp - a function that comapre two string
+*  @s1: - the first pointer to the string
+*  @s2: - the second pointer to the string
+*     *Return: an int
+*/
 
 int _strcmp(char *s1, char *s2)
 {
-	int a;
-	int b;
-	int i;
-	int d;
-	int s;
+	int a = 0;
+	int b = 0;
+	int i = 0;
+	int d = 0;
+	int s = 0;
 
-	d = 0;
 	s = strlen(s1);
-	for (i = 0; i < s; i++)
+	for (; i < s; i++)
 	{
 		if (s1[i] != s2[i])
 		{
@@ -75,20 +71,16 @@ int _strcmp(char *s1, char *s2)
 	return (d);
 }
 
-
-
-
-
 /**
- *  _strncmp - function compares the first `n`
- *  characters of the strings `s1` and `s2`.
- * It returns a negative number if
- * @s1: is less than
- * @s2: a positive number if `s1` is greater than `s2`,
- * and 0 if the strings are equal.
- * @n: the asize of the strings
- * Return: an int
- */
+*  _strncmp - function compares the first `n`
+*  characters of the strings `s1` and `s2`.
+* It returns a negative number if
+* @s1: is less than
+* @s2: a positive number if `s1` is greater than `s2`,
+	* and 0 if the strings are equal.
+	* @n: the asize of the strings
+	* Return: an int
+	*/
 
 int _strncmp(const char *s1, const char *s2, size_t n)
 {
