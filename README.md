@@ -31,30 +31,23 @@ etc. Additionally, shell programs offer features such as line editing, history.
 
 ### Processes in Linux ,
 ~~~
-  or in any unix operating system, are created based on an existing process 
-  by means of a cloning mechanism,or fork.existing process by means of a cloning mechanism, or fork.
-  A Linux process spawns a new process to perform a given task, and this new process is considered a 
-  child process of the previous process , which we will call parent.process is considered a
-  child process of the previous process, which we will call parent.
-  The PID, or Process ID, is an integer that uniquely identifies each process in a table of processes
-  managed by the a process table managed by the Linux kernel. This process table maintains
-  an entry for each of the processes currently running on the system. 
+In Linux or any Unix operating system, processes are created using a cloning mechanism known as fork. This mechanism creates
+a new process based on an existing one. The new process is considered a child process of the previous process, which we will
+call the parent. The process ID (PID) is a unique integer that identifies each process in a table managed by the Linux kernel.
 
- fork() — Create a new process
- System call fork() is used to create processes. It takes no arguments and returns a process ID. 
- The purpose of fork() is to create a new process, which becomes the child process of the caller. 
- After a new child process is created, both processes will execute the next instruction following 
- the fork() system call. 
- Therefore, we have to distinguish the parent from the child. This can be done by testing the
- returned value of fork():
+To create a new process, the system call fork() is used. This call takes no arguments and returns a process 
+ID. The purposeof fork() is to create a child process of the caller. Once the child process is created, both the parent
+and child will execute the next instruction following the fork() system call. To distinguish between the parent and the 
+child process, the return value of fork() needs to be tested:
 
-if fork() returns a negative value, the creation of a child process was unsuccessful.
-fork() returns a zero to the newly created child process.
-fork() returns a positive value, the process ID of the child process, to the parent. 
-The returned process ID is of type pid_t defined in sys/types.h. Normally,
-the process ID is an integer. Moreover, a process can use function getpid() to retrieve 
-the process ID assigned to this process.
-Therefore, after the system call to fork(), a simple test can tell which process is the child.
+If fork() returns a negative value, the child process creation was unsuccessful.
+If fork() returns zero, the newly created process is the child process.
+If fork() returns a positive value, the process ID of the child process is returned to the parent. The process ID is of
+type pid_t defined in sys/types.h, and it is usually an integer.
+The getpid() function can be used to retrieve the process ID assigned to a process.
+In summary, fork() is used to create child processes in Linux or any Unix operating system. The return value of fork() 
+can be used to determine whether the process is the parent or the child. The process ID uniquely identifies each process
+in a table maintained by the Linux kernel.
 
 getline() reads an entire line from stream, storing the address
        of the buffer containing the text into *lineptr.  The buffer is
