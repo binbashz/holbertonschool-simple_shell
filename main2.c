@@ -74,7 +74,7 @@ int main(int argc, char **argv)                 /* main */
 	const char *delim = " \t\r\n\a"; /* delimitadores para el tokenizador */
 	int number_tokens = 0; /* numero total de tokens en la linea */
 	char *token = NULL; /* puntero a cada token */
-	int i;  /* contador para bucle */
+	int i, s = 0;  /* contador para bucle */
 
 	/* declaring void variables */
 	(void)argc;
@@ -125,10 +125,10 @@ int main(int argc, char **argv)                 /* main */
 		}
 		/* Store each token in the array argv  */
 		token = strtok(lineptr_duplicate, delim);
-
+		s = _strlen(token);
 		for (i = 0; token != NULL; i++) /* se almacena cada palabra en array argv*/
 		{
-			argv[i] = malloc(sizeof(char) * (_strlen(token) + 1));
+			argv[i] = malloc(sizeof(char) * (s + 1));
 			if (argv[i] == NULL)
 			{
 				free(lineptr);
@@ -155,6 +155,7 @@ int main(int argc, char **argv)                 /* main */
 		}
 		else if (_strcmp(argv[0], "exit") == 0)
 		{
+			free(lineptr);
 			free(token);
 			free(lineptr_duplicate);
 			for (; i > 0; i--)
@@ -166,11 +167,10 @@ int main(int argc, char **argv)                 /* main */
 		{
 			execute_external_command(argv);
 		}
-		free(lineptr_duplicate);
-		free(token);
 		for (; i > 0; i--)
 			free(argv[i]);
 		free(argv);
+		free(token);
 	}
 	return (0);
 }
