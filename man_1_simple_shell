@@ -41,7 +41,15 @@ If successful, the child process will run the command and then terminate. The pa
 .PP
 .B execute_internal_command
 Executes a command built into the shell program. This function handles internal shell commands such as  "exit".
+ .TP
+\fBls\fP
+List all files and directories in the current directory.
 
+.TP
+\fBenv\fP
+Print the environment variables.
+
+.TP
 .PP
 .B main
 Entry point for the shell program. This function contains the main loop for the shell program.
