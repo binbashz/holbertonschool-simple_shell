@@ -18,9 +18,8 @@ To use my_sh, simply run the program in the command line. Once the program is ru
 Internal commands are built into the shell program, and are executed by the execute_internal_command function. 
 To execute an internal command, simply enter the command name and any required arguments. The following internal commands are available:
 
-.PP
-.B cd
-Changes the current working directory.
+
+
 
 .PP
 .B exit
@@ -41,7 +40,7 @@ If successful, the child process will run the command and then terminate. The pa
 
 .PP
 .B execute_internal_command
-Executes a command built into the shell program. This function handles internal shell commands such as "cd" or "exit".
+Executes a command built into the shell program. This function handles internal shell commands such as  "exit".
 
 .PP
 .B main
