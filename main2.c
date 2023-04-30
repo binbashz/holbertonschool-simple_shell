@@ -13,7 +13,7 @@
 int execute_external_command(char **argv)
 {
 	pid_t pid;
-	int status = 0;
+	int status = 0, i = 0;
 	char *envp[] = { NULL };
 
 	pid = fork(); /* crea un proceso hijo */
@@ -23,6 +23,11 @@ int execute_external_command(char **argv)
 		/* This is the child process */
 		execve(argv[0], argv, envp); /* ejecuta el comando */
 		perror("execve error");
+		while (argv[i] != NULL)
+		{
+			free(argv[i]);
+			i++;
+		}
 		free(argv);
 		exit(EXIT_FAILURE); /* termina el proceso hijo */
 	}
@@ -30,6 +35,11 @@ int execute_external_command(char **argv)
 	{
 		/* The fork failed */
 		perror("fork error");
+		while (argv[i] != NULL)
+		{
+			free(argv[i]);
+			i++;
+		}
 		free(argv);
 		return (-1);
 	}
@@ -83,7 +93,7 @@ int main(int argc, char **argv)                 /* main */
 		}
 
 		/* allocate space for a copy of the lineptr */
-		lineptr_duplicate = malloc(sizeof(char) * inputLength + 1);
+		lineptr_duplicate = malloc(sizeof(char) * (size_t)inputLength + 1);
 		if (lineptr_duplicate == NULL)
 		{
 			perror("memory allocation error");
@@ -104,7 +114,6 @@ int main(int argc, char **argv)                 /* main */
 			token = strtok(NULL, delim);
 		}
 		number_tokens++;
-
 		/* Allocate space to hold the array of strings */
 		argv = malloc(sizeof(char *) * number_tokens);
 		if (argv == NULL)
@@ -132,8 +141,6 @@ int main(int argc, char **argv)                 /* main */
 			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
-
-
 		/* Determine if the command is internal or external */
 
 		if (_strcmp(argv[0], "ls") == 0)
@@ -146,9 +153,9 @@ int main(int argc, char **argv)                 /* main */
 		{
 			print_env();
 		}
-
 		else if (_strcmp(argv[0], "exit") == 0)
 		{
+			free(token);
 			free(lineptr_duplicate);
 			for (; i > 0; i--)
 				free(argv[i]);
@@ -159,6 +166,8 @@ int main(int argc, char **argv)                 /* main */
 		{
 			execute_external_command(argv);
 		}
+		free(lineptr_duplicate);
+		free(token);
 		for (; i > 0; i--)
 			free(argv[i]);
 		free(argv);
