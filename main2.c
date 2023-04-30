@@ -13,7 +13,7 @@
 int execute_external_command(char **argv)
 {
 	pid_t pid;
-	int status;
+	int status = 0;
 	char *envp[] = { NULL };
 
 	pid = fork(); /* crea un proceso hijo */
@@ -63,7 +63,7 @@ int main(int argc, char **argv)                 /* main */
 	ssize_t inputLength = 0; /* longitud de la linea igresada */
 	const char *delim = " \t\r\n\a"; /* delimitadores para el tokenizador */
 	int number_tokens = 0; /* numero total de tokens en la linea */
-	char *token; /* puntero a cada token */
+	char *token = NULL; /* puntero a cada token */
 	int i;  /* contador para bucle */
 
 	/* declaring void variables */
@@ -83,11 +83,11 @@ int main(int argc, char **argv)                 /* main */
 		}
 
 		/* allocate space for a copy of the lineptr */
-		lineptr_duplicate = malloc(sizeof(char) * inputLength);
+		lineptr_duplicate = malloc(sizeof(char) * inputLength + 1);
 		if (lineptr_duplicate == NULL)
 		{
 			perror("memory allocation error");
-			free (lineptr);
+			free(lineptr);
 			return (-1);
 		}
 
@@ -150,7 +150,7 @@ int main(int argc, char **argv)                 /* main */
 		else if (_strcmp(argv[0], "exit") == 0)
 		{
 			free(lineptr_duplicate);
-			for(; i > 0; i--)
+			for (; i > 0; i--)
 				free(argv[i]);
 			free(argv);
 			break;

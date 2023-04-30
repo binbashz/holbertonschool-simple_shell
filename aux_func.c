@@ -29,6 +29,8 @@ int _strlen(char *s)
 {
 	int a = 0;
 
+	if (s == NULL)
+		return (-1);
 	while (s[a] != '\0')
 	{
 		a++;
@@ -53,7 +55,9 @@ int _strcmp(char *s1, char *s2)
 	int d = 0;
 	int s = 0;
 
-	s = strlen(s1);
+	s = _strlen(s1);
+	if (s1 == NULL || s2 == NULL)
+		return (-1);
 	for (; i < s; i++)
 	{
 		if (s1[i] != s2[i])
@@ -69,32 +73,4 @@ int _strcmp(char *s1, char *s2)
 		}
 	}
 	return (d);
-}
-
-/**
-*  _strncmp - function compares the first `n`
-*  characters of the strings `s1` and `s2`.
-* It returns a negative number if
-* @s1: is less than
-* @s2: a positive number if `s1` is greater than `s2`,
-	* and 0 if the strings are equal.
-	* @n: the asize of the strings
-	* Return: an int
-	*/
-
-int _strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t i;
-
-	/* Iterate over the first `n` characters of the strings */
-	for (i = 0; i < n; i++)
-	{
-
-		if (s1[i] == '\0' || s1[i] != s2[i])
-		{
-			return (s1[i] - s2[i]);
-		}
-	}
-
-	return (0);
 }
