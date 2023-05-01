@@ -75,21 +75,43 @@ This assigns to lineptr the value of the line entered from the keyboard. The siz
 
  #### Flow of the built "shell"
 The program uses the fork(), execvp() and waitpid() functions to create a child process that executes external commands,
-and waits for the child process to terminate before continuing. It also includes the implementation of an execute_internal_command() function to handle internal commands such as "exit".
+and waits for the child process to terminate before continuing. It also includes the implementation of an execute_internal_command() function to
+handle internal commands such as "exit".
 
 
 The program begins with the declaration of two functions: execute_external_command() and execute_internal_command(). The first function handles 
 the execution of external commands, while the second handles internal commands.
 
-The execute_external_command() function receives an array of strings containing the arguments for the external command. It first creates a child process using fork(). If the return value of fork() is zero, the child process executes the command using execvp(). If the return value of fork() is negative, an error message is printed and -1 is returned. If the return value of fork() is greater than zero, the parent process waits for the child process to finish using waitpid(), and then frees the memory allocated for the argument array.
+The execute_external_command() function receives an array of strings containing the arguments for the external command. It first creates a child process using fork(). 
+If the return value of fork() is zero, the child process executes the command using execvp(). If the return value of fork() is negative, an error message is printed 
+and -1 is returned. If the return value of fork() is greater than zero, the parent process waits for the child process to finish using waitpid(), and then frees the
+memory allocated for the argument array.
 
-The execute_internal_command() function receives a string array containing the arguments for the internal command. In this implementation, this function does nothing, since no internal commands have been implemented.
+The execute_internal_command() function receives a string array containing the arguments for the internal command. In this implementation, this function does nothing, 
+since no internal commands have been implemented.
 
-The main function of the program is main(). The function begins with the declaration of some variables, including a prompt message to the user, a pointer to the line entered by the user and the size of the line, a delimiter for the tokenizer, and counters for the loops.
+The main function of the program is main(). The function begins with the declaration of some variables, including a prompt message to the user, a pointer 
+to the line entered by the user and the size of the line, a delimiter for the tokenizer, and counters for the loops.
 
-Within the main while loop, the program prints the prompt message, reads the user input using getline(), and then uses strtok() to split the entered line into words. The program uses malloc() to allocate memory for an array of pointers to char, and then uses strtok() again to store each word in the array.
+Within the main while loop, the program prints the prompt message, reads the user input using getline(), and then uses strtok() to split the entered line into words. 
+The program uses malloc() to allocate memory for an array of pointers to char, and then uses strtok() again to store each word in the array.
 
-After the argument array has been constructed, the program uses strcmp() to determine whether the command entered is internal or external. If the command is internal, the execute_internal_command() function is called, otherwise the execute_external_command() function is called.
+After the argument array has been constructed, the program uses strcmp() to determine whether the command entered is internal or external. If the command is internal,
+the execute_internal_command() function is called, otherwise the execute_external_command() function is called.
+
+
+##### The built-in shell running
+
+![shell img](https://user-images.githubusercontent.com/124454895/235386846-78bfac85-7faf-41c0-a811-626f7e230a1c.PNG)
+
+
+
+The user can access the manual, by typing
+man ./man_1_simple_shell
+
+
+![man page](https://user-images.githubusercontent.com/124454895/235386814-ec5ad05e-5e39-4c20-b5e1-f44d6ab07bfe.PNG)
+
 
 
 
